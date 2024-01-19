@@ -1,6 +1,6 @@
 # Alphabetor
 
-Questo è un gioco che ha lo scopo di aiutare a memorizzare la posizione di una lettera nell'alafabeto.
+Questo è un gioco che ha lo scopo di aiutare a memorizzare la posizione di una lettera nell'alfabeto.
 
 ## Come si gioca
 

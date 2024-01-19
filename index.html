@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/rpgui@1.0.3/rpgui.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/rpgui@1.0.3/rpgui.min.css" rel="stylesheet">
+<style>
+    body, #container
+    {
+        background: #222;
+        padding-top:20px;
+        padding-bottom:20px;
+        text-align: center;
+    }
+    .inner
+    {
+        background: #444;
+        padding-left:20px;
+        padding-right:20px;
+        min-width: 740px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    input[type="number"] {
+        text-align: center !important;
+    }
+    input[type="number"]::-webkit-inner-spin-button {
+        display: none;
+    }
+    input[type="number"] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+        -webkit-appearance: textfield;
+    }
+</style>
+<body>
+<div class="rpgui-content" style="overflow-y:scroll;">
+    <div id="container">
+        <div id="main"></div>
+        <div class="inner rpgui-container framed" style="position:relative">
+
+            <header>
+                <h1 style="font-size:250%">ALPHABETOR</h1>
+                <hr class="golden" />
+                <h2 style="font-size:175%">Be smart from A to Zetor!</h2>
+            </header>
+
+            <div id="containers" class="rpgui-container framed-grey">
+                <h3>What's about the letter...</h3>
+                <p>Type the position of the letter on the alphabet.</p>
+                <hr />
+
+                <div class="rpgui-container framed" style="position:relative; width:32%; height:200px; display:inline-block; visibility: hidden">
+                    <p>class:<br />rpgui-container framed</p>
+                </div>
+
+                <div class="rpgui-container framed-golden-2" style="position:relative; width:32%; height:200px; display:inline-block">
+                    <p id="letter" style="font-size: 50px; line-height: 0.8">A</p>
+                </div>
+
+                <div class="rpgui-container framed-golden" style="position:relative; width:32%; height:200px; display:inline-block; visibility: hidden">
+                    <p>class:<br />rpgui-container framed-golden</p>
+                </div>
+
+                <br /><br />
+
+                <div class="rpgui-container framed-grey" style="position:relative; width:100%; height:auto; display:inline-block">
+                    <p>Type below and press [ENTER]</p>
+                    <input id="number" type="number">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const numberFiled = document.getElementById('number');
+    const letterPanel = document.getElementById('letter');
+
+    function start() {
+        numberFiled.value = '';
+        numberFiled.focus();
+        randomLetter();
+    }
+
+    function randomLetter() {
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+        letterPanel.innerHTML = randomLetter;
+    }
+
+    function kickOff(event) {
+        if (event.keyCode !== 13) {
+            return;
+        }
+
+        const letter = letterPanel.innerText.trim().toUpperCase();
+        const number = parseInt(numberFiled.value);
+        const rightAnswer = letter.charCodeAt(0) - 64;
+
+        if (number != rightAnswer) {
+            alert('Wrong! The correct answer is ' + rightAnswer + '\n\nClose this fucking alert and try again!');
+        }
+
+        start();
+    }
+
+    numberFiled.addEventListener('keyup', kickOff);
+
+    start();
+</script>
+</body>
+</html>
+
+
+
+
+
