@@ -1,11 +1,11 @@
 # Alphabetor
 
-Questo è un gioco che ha lo scopo di aiutare a memorizzare la posizione di una lettera nell'alfabeto.
+This is a game designed to help memorize the position of a letter in the alphabet.
 
-## Come si gioca
+## How to play
 
-Visita il seguente indirizzo: <https://alphabetor.yafb.net>
+Visit this address: <https://alphabetor.yafb.net>
 
 ## Licenza
 
-Questo progetto è rilasciato sotto licenza MIT. Vedi il file `LICENSE` per i dettagli.
+This project is released under the MIT license. See the LICENSE file for details.
