@@ -14,6 +14,6 @@ With honor, edit the sacred file at the designated point, carving a niche for yo
 Summon your courage, execute a pull request, and unveil your valor with a screenshot of your legendary record. 
 To reveal the precise location for your 4-character insignia, unfurl your banner and follow this [link](https://github.com/francescobianco/alphabetor/blob/main/index.html#L70). May your journey be epic!
 
-## Licenza
+## License
 
 This project is released under the MIT license. See the LICENSE file for details.
