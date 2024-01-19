@@ -53,13 +53,7 @@
 
                 <div class="rpgui-container framed" style="position:relative; width:32%; height:200px; display:inline-block; overflow: hidden;">
                     <h4>SCOREBOARD</h4>
-                    <p>
-                        TIME: 00:00<br>
-                        ROUND: 0001<br>
-                        POINT: 0000<br>
-                        SPEED: 0000<br>
-                        SCORE: 0000<br>
-                    </p>
+                    <p id="scoreboard"></p>
                 </div>
 
                 <div class="rpgui-container framed-golden-2" style="position:relative; width:32%; height:200px; display:inline-block; overflow: hidden;">
@@ -82,6 +76,7 @@
                 <div class="rpgui-container framed-grey" style="position:relative; width:100%; height:auto; display:inline-block">
                     <p>Type below and press [ENTER]</p>
                     <input id="number" type="number">
+                    <p>Submit a pull request with your record, including a screenshot and changes to the leaderboard.</p>
                 </div>
             </div>
         </div>
@@ -90,17 +85,39 @@
 <script>
     const numberFiled = document.getElementById('number');
     const letterPanel = document.getElementById('letter');
+    const scoreboardPanel = document.getElementById('scoreboard');
+
+    let round = 1;
+    let guess = 0;
+    let score = 0;
+    let speed = 0;
+    let now = new Date();
+    let startTime = new Date();
 
     function start() {
         numberFiled.value = '';
         numberFiled.focus();
         randomLetter();
+        markScore();
     }
 
     function randomLetter() {
         const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const randomLetter = letters[Math.floor(Math.random() * letters.length)];
         letterPanel.innerHTML = randomLetter;
+    }
+
+    function getPoints(letter) {
+        let letterPoints = 1;
+
+        return Math.round(letterPoints * (speed/10));
+    }
+
+    function getSpeed() {
+        const timeDiff = now - startTime;
+        const seconds = Math.round(timeDiff / 1000);
+
+        return Math.round(60 / (seconds / guess));
     }
 
     function kickOff(event) {
@@ -112,11 +129,40 @@
         const number = parseInt(numberFiled.value);
         const rightAnswer = letter.charCodeAt(0) - 64;
 
+        now = new Date();
+
         if (number != rightAnswer) {
             alert('Wrong! The correct answer is ' + rightAnswer + '\n\nClose this fucking alert and try again!');
+            startTime = now;
+            guess = 0;
+            speed = 0;
+            round++
+        } else {
+            guess++;
+            speed = getSpeed();
+            score += getPoints(letter);
         }
 
         start();
+    }
+
+    function pad(num, size) {
+        num = num.toString();
+        while (num.length < size) num = "0" + num;
+        return num;
+    }
+
+    function markScore() {
+        const roundValue = pad(round, 4)
+        const scoreValue = pad(score, 4)
+        const guessValue = pad(guess, 4)
+        const speedValue = pad(speed, 4)
+        const secondsDifference = Math.floor((now - startTime) / 1000);
+        const minutes = Math.floor(secondsDifference / 60);
+        const seconds = secondsDifference % 60;
+        const timeValue = pad(minutes, 2) + ':' + pad(seconds, 2);
+
+        scoreboardPanel.innerHTML = `ROUND: ${roundValue}<br>SCORE: ${scoreValue}<br>GUESS: ${guessValue}<br>SPEED: ${speedValue}<br>TIME: ${timeValue}`
     }
 
     numberFiled.addEventListener('keyup', kickOff);
